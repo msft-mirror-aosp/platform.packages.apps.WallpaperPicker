@@ -16,24 +16,53 @@
 
 LOCAL_PATH := $(call my-dir)
 
+#
+# Latest snapshot of Glide  jar. This will be removed
+# once the platform version of glide is updated.
+#
+include $(CLEAR_VARS)
+LOCAL_PREBUILT_STATIC_JAVA_LIBRARIES := \
+    libGlide_wallpaper_deps:lib-glide/glide.jar
+include $(BUILD_MULTI_PREBUILT)
+
 # Standalone Wallpaper picker app
 # ========================================================
 include $(CLEAR_VARS)
+ifeq ($(TARGET_BUILD_APPS),)
+support_library_root_dir := frameworks/support
+else
+support_library_root_dir := prebuilts/sdk/current/support
+endif
+
 LOCAL_MODULE_TAGS := optional
-LOCAL_STATIC_JAVA_LIBRARIES := android-support-v4
 LOCAL_SRC_FILES := $(call all-java-files-under, src)
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
+
+LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res \
+    $(support_library_root_dir)/design/res \
+    $(support_library_root_dir)/v7/appcompat/res \
+    $(support_library_root_dir)/v7/cardview/res \
+    $(support_library_root_dir)/v7/recyclerview/res \
+
+LOCAL_AAPT_FLAGS := \
+    --auto-add-overlay \
+    --extra-packages android.support.design \
+    --extra-packages android.support.v7.appcompat \
+    --extra-packages android.support.v7.cardview \
+    --extra-packages android.support.v7.recyclerview \
+    --extra-packages com.android.apps.viewer.widget \
+
+LOCAL_STATIC_JAVA_LIBRARIES := \
+    android-support-v4 \
+    android-support-design \
+    android-support-v7-appcompat \
+    android-support-v7-cardview \
+    android-support-v7-recyclerview \
+    guava \
+    jsr330 \
+    volley \
+    libGlide_wallpaper_deps \
+
 LOCAL_SDK_VERSION := current
+LOCAL_PROGUARD_ENABLED := disabled
 LOCAL_PACKAGE_NAME := WallpaperPicker
 include $(BUILD_PACKAGE)
-
-
-# Static library for target
-# ========================================================
-include $(CLEAR_VARS)
-LOCAL_MODULE := libWallpaperPicker
-LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
-LOCAL_SDK_VERSION := current
-LOCAL_SRC_FILES := $(call all-java-files-under,src)
-LOCAL_JAVA_LIBRARIES := android-support-v4
-include $(BUILD_STATIC_JAVA_LIBRARY)
