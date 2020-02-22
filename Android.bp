@@ -21,6 +21,7 @@ android_app {
     static_libs: ["android-support-v4"],
     srcs: ["src/**/*.java"],
     resource_dirs: ["res"],
+    product_specific: true,
     sdk_version: "current",
     product_specific: true,
 }
