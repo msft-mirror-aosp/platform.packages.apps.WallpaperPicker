@@ -23,7 +23,6 @@ android_app {
     resource_dirs: ["res"],
     product_specific: true,
     sdk_version: "current",
-    product_specific: true,
 }
 
 // Static library for target
