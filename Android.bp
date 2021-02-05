@@ -16,6 +16,10 @@
 
 // Standalone Wallpaper picker app
 // ========================================================
+package {
+    default_applicable_licenses: ["Android-Apache-2.0"],
+}
+
 android_app {
     name: "WallpaperPicker",
     static_libs: ["android-support-v4"],
