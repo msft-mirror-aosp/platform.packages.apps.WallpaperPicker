@@ -26,6 +26,8 @@ LOCAL_RESOURCE_DIR := $(LOCAL_PATH)/res
 LOCAL_SDK_VERSION := current
 LOCAL_PACKAGE_NAME := WallpaperPicker
 LOCAL_PRODUCT_MODULE := true
+LOCAL_LICENSE_KINDS := SPDX-license-identifier-Apache-2.0
+LOCAL_LICENSE_CONDITIONS := notice
 include $(BUILD_PACKAGE)
 
 
